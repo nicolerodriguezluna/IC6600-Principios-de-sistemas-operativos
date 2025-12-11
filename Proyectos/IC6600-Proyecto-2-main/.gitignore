@@ -1,0 +1,15 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Entornos
+.env
+.env.local
+
+# VS Code
+.vscode/

@@ -1,0 +1,14 @@
+{
+  "name": "op-proyecto2",
+  "version": "1.0.0",
+  "description": "UI del simulador de paginación (sin lógica)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

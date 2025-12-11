@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulador de Paginación — Configuración</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1>Simulador de Paginación — Configuración</h1>
+    <h2>Selecciona si deseas cargar un archivo existente o generar uno nuevo</h2>
+
+    <div class="grid grid-2" style="margin-top:16px;">
+      <!-- Parámetros -->
+      <section class="card">
+        <h3>Parámetros del escenario</h3>
+        <div class="kv" style="margin-bottom:12px;">
+          <div class="k">RAM</div>
+          <div class="v">400 KB (100 páginas de 4 KB)</div>
+          <div class="k">Disco</div>
+          <div class="v">Indefinido</div>
+          <div class="k">Acceso a disco</div>
+          <div class="v">5s (para la demo)</div>
+        </div>
+
+        <div class="row">
+          <label>
+            Algoritmo a comparar
+            <select id="algorithm">
+              <option value="FIFO">FIFO</option>
+              <option value="SC">Second Chance (SC)</option>
+              <option value="MRU">MRU</option>
+              <option value="RND">Random (RND)</option>
+            </select>
+          </label>
+
+          <!-- Campo adicional solo visible si se elige Random -->
+          <label id="randSeedLabel" style="display:none; flex:1;">
+            Semilla Random
+            <input type="number" id="randSeed" placeholder="Ingrese semilla" />
+          </label>
+        </div>
+      </section>
+
+      <!-- Archivo de operaciones -->
+      <section class="card">
+        <h3>Archivo de Operaciones</h3>
+
+        <!-- Modo 1: Cargar archivo -->
+        <div class="subcard">
+          <div class="subcard-header">
+            <h4>Cargar archivo existente</h4>
+            <input type="radio" name="mode" value="upload" id="modeUpload" checked />
+          </div>
+          <div class="subcard-body" id="uploadControls">
+            <input type="file" id="opsFile" accept=".txt" />
+            <button id="btnClearFile">Limpiar selección</button>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <!-- Modo 2: Generar archivo -->
+        <div class="subcard">
+          <div class="subcard-header">
+            <h4>Generar nuevo archivo</h4>
+            <input type="radio" name="mode" value="generate" id="modeGenerate" />
+          </div>
+
+          <div class="subcard-body" id="generateControls">
+            <div class="row">
+              <label>P (procesos)
+                <select id="P">
+                  <option>10</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+              </label>
+              <label>N (operaciones)
+                <select id="N">
+                  <option>500</option>
+                  <option>1000</option>
+                  <option>5000</option>
+                </select>
+              </label>
+              <label>Semilla
+                <input type="number" id="seed" value="12345" />
+              </label>
+            </div>
+            <div class="row" style="margin-top:12px; gap:12px;">
+              <button id="btnGenerate">Generar archivo</button>
+              <button id="btnDownload">Descargar archivo</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="row" style="margin-top:16px;">
+      <button id="btnContinue" class="primary">Continuar a la Simulación</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { generateOperations } from '/src/core/opsgen.js';
+    window.generateOperations = generateOperations;
+  </script>
+  <script src="./app-config.js"></script>
+</body>
+
+</html>

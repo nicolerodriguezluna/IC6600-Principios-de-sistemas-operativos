@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulación — OP-Proyecto2</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="container">
+
+    <div style="margin: 8px 0 16px">
+      <button onclick="location.href='./index.html'">← Atrás</button>
+    </div>
+
+    <h1>Simulación (OPT vs Algoritmo)</h1>
+    <h2>Visualización de RAM, MMU y métricas - Simulación</h2>
+
+    <!-- Barras de RAM -->
+    <div class="card">
+      <div class="title-ram">
+        <span>RAM – OPT</span>
+        <span id="ramInfoOpt" class="badge">0/100</span>
+      </div>
+      <div id="ramOpt" class="rambar"></div>
+
+      <div class="title-ram" style="margin-top:12px;">
+        <span>RAM – [ALG]</span>
+        <span id="ramInfoAlg" class="badge">0/100</span>
+      </div>
+      <div id="ramAlg" class="rambar"></div>
+    </div>
+
+    <!-- Paneles lato a lado -->
+    <div class="grid grid-2" style="margin-top:16px;">
+
+      <!-- OPT -->
+      <section class="card">
+        <div class="panelTitle">
+          <h3>MMU – OPT</h3>
+          <span class="tag tag-opt">óptimo</span>
+        </div>
+
+        <div class="stat">
+          <div class="k">Hits</div>
+          <div class="val" id="optHits">0</div>
+          <div class="k">Misses</div>
+          <div class="val" id="optMisses">0</div>
+        </div>
+        <div class="hr"></div>
+
+        <div class="scroll">
+          <table class="table" id="tableOPT">
+            <thead>
+              <tr>
+                <th>PAGE ID</th>
+                <th>PID</th>
+                <th>LOADED</th>
+                <th>L-ADDR</th>
+                <th>M-ADDR</th>
+                <th>D-ADDR</th>
+                <th>LOADED-T</th>
+                <th>MARK</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="hr"></div>
+        <div class="box box-flex">
+          <div class="left-column">
+            <div class="card small">
+              <h4>Procesos</h4>
+              <div class="kv">
+                <div class="k">En ejecución</div>
+                <div class="v" id="optProcRun">0</div>
+                <div class="k">Finalizados</div>
+                <div class="v" id="optProcDone">0</div>
+              </div>
+            </div>
+
+            <div class="card small">
+              <h4>Tiempo</h4>
+              <div class="kv">
+                <div class="k">Total</div>
+                <div class="v" id="optTime">0s</div>
+                <div class="k">Thrashing</div>
+                <div class="v">
+                  <span id="optThrash">0s</span>
+                  (<span id="optThrPct" class="ok">0%</span>)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card wide">
+            <h4>Memoria</h4>
+            <div class="kv">
+              <div class="k">RAM KB</div>
+              <div class="v" id="optRamKB">0</div>
+
+              <div class="k">RAM %</div>
+              <div class="v" id="optRamPct">0%</div>
+
+              <div class="k">V-RAM KB</div>
+              <div class="v" id="optVRamKB">0</div>
+
+              <div class="k">V-RAM %</div>
+              <div class="v" id="optVRamPct">0%</div>
+
+              <div class="k">PAGES</div>
+              <div class="v pages-group">
+                <div><span id="optLoaded">0</span> loaded</div>
+                <div><span id="optUnloaded">0</span> unloaded</div>
+              </div>
+
+              <div class="k">Fragmentación</div>
+              <div class="v" id="optFrag">0 KB</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ALG -->
+      <section class="card">
+        <div class="panelTitle">
+          <h3 id="algTitle">MMU – [ALG]</h3>
+          <span class="tag tag-alg">comparación</span>
+        </div>
+
+        <div class="stat">
+          <div class="k">Hits</div>
+          <div class="val" id="algHits">0</div>
+          <div class="k">Misses</div>
+          <div class="val" id="algMisses">0</div>
+        </div>
+        <div class="hr"></div>
+
+        <div class="scroll">
+          <table class="table" id="tableALG">
+            <thead>
+              <tr>
+                <th>PAGE ID</th>
+                <th>PID</th>
+                <th>LOADED</th>
+                <th>L-ADDR</th>
+                <th>M-ADDR</th>
+                <th>D-ADDR</th>
+                <th>LOADED-T</th>
+                <th>MARK</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="hr"></div>
+        <div class="box box-flex">
+          <div class="left-column">
+            <div class="card small">
+              <h4>Procesos</h4>
+              <div class="kv">
+                <div class="k">En ejecución</div>
+                <div class="v" id="algProcRun">0</div>
+                <div class="k">Finalizados</div>
+                <div class="v" id="algProcDone">0</div>
+              </div>
+            </div>
+
+            <div class="card small">
+              <h4>Tiempo</h4>
+              <div class="kv">
+                <div class="k">Total</div>
+                <div class="v" id="algTime">0s</div>
+                <div class="k">Thrashing</div>
+                <div class="v">
+                  <span id="algThrash">0s</span>
+                  (<span id="algThrPct" class="ok">0%</span>)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card wide">
+            <h4>Memoria</h4>
+            <div class="kv">
+              <div class="k">RAM KB</div>
+              <div class="v" id="algRamKB">0</div>
+
+              <div class="k">RAM %</div>
+              <div class="v" id="algRamPct">0%</div>
+
+              <div class="k">V-RAM KB</div>
+              <div class="v" id="algVRamKB">0</div>
+
+              <div class="k">V-RAM %</div>
+              <div class="v" id="algVRamPct">0%</div>
+
+              <div class="k">PAGES</div>
+              <div class="v pages-group">
+                <div><span id="algLoaded">0</span> loaded</div>
+                <div><span id="algUnloaded">0</span> unloaded</div>
+              </div>
+
+              <div class="k">Fragmentación</div>
+              <div class="v" id="algFrag">0 KB</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Controles -->
+    <div class="card" style="margin-top:16px;">
+      <div class="row">
+        <button class="primary" id="btnStart">Iniciar</button>
+        <button id="btnPause">Pausar</button>
+        <button id="btnStep">Paso</button>
+        <button id="btnReset">Reiniciar</button>
+        <label>Velocidad (ops/s)
+          <input type="number" id="speed" value="5" min="1" max="20000">
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="./app-simulate.js"></script>
+</body>
+
+</html>
